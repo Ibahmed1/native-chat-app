@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { DefaultTheme, Provider as PaperProvider, IconButton, Title, Headline, TextInput } from "react-native-paper";
 import { StyleSheet, Text, View, Button } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
+
+const Stack = createNativeStackNavigator();
 
 const theme = {
   ...DefaultTheme,
@@ -15,10 +21,12 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <View style={styles.titleWrapper}>
-        <Title>Native Chat</Title>
-      </View>
-      <View style={styles.container}></View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </PaperProvider>
   );
 }

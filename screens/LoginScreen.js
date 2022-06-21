@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FirebaseFunctions } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -9,9 +10,28 @@ const LoginScreen = () => {
   const [secureInput, setSecureInput] = useState(true);
 
   const firebase = new FirebaseFunctions();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    async function authenticatingUser() {
+      const user = await firebase.authentication();
+      if (user) {
+        navigation.replace("Home");
+      }
+    }
+    authenticatingUser();
+    // return user;
+  }, []);
 
   async function handleCreateAccount(email, password) {
     const user = await firebase.createAccount(email, password);
+  }
+
+  async function handleSignIn(email, password) {
+    const user = await firebase.signIn(email, password);
+    if (user && user.uid) {
+      navigation.replace("Home");
+    }
   }
 
   return (
@@ -40,7 +60,13 @@ const LoginScreen = () => {
           </Button>
         </View>
         <View style={styles.buttonContainer}>
-          <Button mode="contained" onPress={() => {}} style={styles.button}>
+          <Button
+            mode="contained"
+            onPress={() => {
+              handleSignIn(email, password);
+            }}
+            style={styles.button}
+          >
             <Text style={styles.buttonText}> Sign in</Text>
           </Button>
         </View>

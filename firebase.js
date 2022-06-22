@@ -22,6 +22,7 @@ const firebaseConfig = {
   messagingSenderId: "513733850624",
   appId: "1:513733850624:web:31af6a6b6b1d4d470dcae5",
   measurementId: "G-MDDDMKNSM9",
+  databaseURL: "https://native-chat-cfcdc-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 // Initialize Firebase

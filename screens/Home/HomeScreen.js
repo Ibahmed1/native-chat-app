@@ -1,31 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import { FirebaseFunctions } from "../../firebase";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput, Button } from "react-native-paper";
+import { IconButton } from "react-native-paper";
+import Friends from "./Friends";
+import Messages from "./Messages";
+import AddFriend from "./AddFriend";
+
+const Stack = createNativeStackNavigator();
 
 const HomeScreen = () => {
-  const [user, setUser] = useState(false);
-
   const firebase = new FirebaseFunctions();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    async function gettingUser() {
-      const user = await firebase.currentUser();
-      if (user) {
-        setUser(user);
-      }
-      return user;
-    }
-    gettingUser();
-  }, []);
-
-  function displayUser() {
-    if (user) {
-      return <Text>{user.email}</Text>;
-    }
-  }
 
   async function handleSignOut() {
     const signOut = await firebase.signOutUser();
@@ -35,21 +23,24 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={styles.pageContainer}>
-      <Text>HomeScreen</Text>
-      {displayUser()}
-      <View style={styles.buttonContainer}>
-        <Button
-          mode="contained"
-          onPress={() => {
-            handleSignOut();
+    <Stack.Navigator>
+      <Stack.Group>
+        <Stack.Screen
+          name="Friends"
+          component={Friends}
+          options={{
+            headerRight: () => <Button onPress={handleSignOut} title="Sign out" />,
+            headerLeft: () => (
+              <IconButton icon="account-plus-outline" size={25} onPress={() => navigation.navigate("AddFriend")} />
+            ),
           }}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}> Sign Out</Text>
-        </Button>
-      </View>
-    </View>
+        />
+        <Stack.Screen name="Messages" component={Messages} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen name="AddFriend" component={AddFriend} />
+      </Stack.Group>
+    </Stack.Navigator>
   );
 };
 

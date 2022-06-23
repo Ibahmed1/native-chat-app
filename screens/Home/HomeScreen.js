@@ -35,7 +35,7 @@ const HomeScreen = () => {
             ),
           }}
         />
-        <Stack.Screen name="Messages" component={Messages} />
+        <Stack.Screen name="Messages" component={Messages} options={({ route }) => ({ title: route.params.name })} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="AddFriend" component={AddFriend} />

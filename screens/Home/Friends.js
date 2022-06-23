@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import { FirebaseFunctions } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput, Button } from "react-native-paper";
+import FriendsList from "./FriendsList";
 
 const Friends = () => {
   const [user, setUser] = useState(false);
+  const [friends, setFriends] = useState(false);
 
   const firebase = new FirebaseFunctions();
   const navigation = useNavigation();
@@ -19,31 +21,32 @@ const Friends = () => {
     gettingUser();
   }, []);
 
-  function displayUserEmail() {
-    console.log(user);
-    return <Text>{user?.email}</Text>;
+  useEffect(() => {
+    async function gettingFriends() {
+      const friends = await firebase.getFriends();
+      setFriends(friends);
+      return friends;
+    }
+    gettingFriends();
+  }, []);
+
+  function loadFriendsList() {
+    if (friends) {
+      return <FriendsList friends={friends} />;
+    }
   }
 
-  return (
-    <View style={styles.pageContainer}>
-      <Text>Friends</Text>
-      {displayUserEmail()}
-    </View>
-  );
+  function displayFriends() {
+    return friends?.map((friend) => {
+      return <Text>{friend["friend_id"]}</Text>;
+    });
+  }
+
+  return <View style={styles.pageContainer}>{loadFriendsList()}</View>;
 };
 
 export default Friends;
 
 const styles = StyleSheet.create({
-  pageContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-  },
-  buttonText: {
-    color: "white",
-  },
+  pageContainer: {},
 });

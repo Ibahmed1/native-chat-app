@@ -92,6 +92,12 @@ class FirebaseFunctions {
     }
   }
 
+  async getUserInfo(id) {
+    const response = await fetch(`http://localhost:5001/native-chat-cfcdc/us-central1/app/user?id=${id}`);
+    const userInfo = await response.json();
+    return userInfo;
+  }
+
   async addFriend(email) {
     const verifyEmailExists = await fetch(
       `http://localhost:5001/native-chat-cfcdc/us-central1/app/user?email=${email}`
@@ -118,8 +124,9 @@ class FirebaseFunctions {
 
   async getFriends() {
     const user = await this.currentUser();
-    const response = await fetch(`http://localhost:5001/native-chat-cfcdc/us-central1/app/friends`);
-    return await response.json();
+    const response = await fetch(`http://localhost:5001/native-chat-cfcdc/us-central1/app/friends?email=${user.email}`);
+    const friends = await response.json();
+    return friends.friends;
   }
 }
 

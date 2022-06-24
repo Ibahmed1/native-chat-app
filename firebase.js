@@ -128,6 +128,26 @@ class FirebaseFunctions {
     const friends = await response.json();
     return friends.friends;
   }
+
+  async sendMessage(message, friendEmail) {
+    const user = await this.currentUser();
+    try {
+      const response = await fetch("http://localhost:5001/native-chat-cfcdc/us-central1/app/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          senderEmail: user.email,
+          receiverEmail: friendEmail,
+          message: message,
+        }),
+      });
+      return await response.json();
+    } catch (error) {
+      return { error: error };
+    }
+  }
 }
 
 export { FirebaseFunctions };

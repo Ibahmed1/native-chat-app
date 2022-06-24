@@ -20,5 +20,7 @@ const FriendsList = (props) => {
 export default FriendsList;
 
 const styles = StyleSheet.create({
-  pageContainer: {},
+  pageContainer: {
+    height: "100%",
+  },
 });

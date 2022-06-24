@@ -46,9 +46,8 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
   },
   textInput: {
-    padding: 10,
+    padding: 2,
     width: "80%",
-    borderRadius: 10,
     marginLeft: "4%",
   },
   newMessageContainer: {

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, KeyboardAvoidingView, View } from "react-native";
 import React, { useState, useEffect } from "react";
-import { FirebaseFunctions } from "../../firebase";
+import { FirebaseFunctions } from "../../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { IconButton, TextInput } from "react-native-paper";
 import { Header } from "@react-navigation/stack";

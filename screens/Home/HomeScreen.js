@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
-import Friends from "./Friends";
-import Messages from "./Messages";
+import Friends from "./FriendsPage/Friends";
+import Messages from "./MessagesPage/Messages";
 import AddFriend from "./AddFriend";
 
 const Stack = createNativeStackNavigator();

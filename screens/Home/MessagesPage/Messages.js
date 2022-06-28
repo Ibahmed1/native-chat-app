@@ -11,8 +11,18 @@ const Messages = ({ route }) => {
 
   const firebase = new FirebaseFunctions();
 
+  useEffect(() => {
+    async function getMessages() {
+      const friendEmail = route.params.name;
+      const messages = await firebase.getMessages(friendEmail);
+      setMessages(messages);
+    }
+    // getMessages();
+  });
+
   async function handleSendMessage() {
     const response = await firebase.sendMessage(newMessage, route.params.name);
+    console.log(response);
     setNewMessage("");
   }
 

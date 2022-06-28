@@ -148,6 +148,15 @@ class FirebaseFunctions {
       return { error: error };
     }
   }
+
+  async getMessages(friendEmail) {
+    const user = await this.currentUser();
+    const response = await fetch(
+      `http://localhost:5001/native-chat-cfcdc/us-central1/app/messages?userEmail=${user.email}&friendEmail=${friendEmail}`
+    );
+    const messages = await response.json();
+    return messages;
+  }
 }
 
 export { FirebaseFunctions };

@@ -155,7 +155,7 @@ class FirebaseFunctions {
       `http://localhost:5001/native-chat-cfcdc/us-central1/app/messages?userEmail=${user.email}&friendEmail=${friendEmail}`
     );
     const messages = await response.json();
-    return messages;
+    return messages.messages;
   }
 }
 

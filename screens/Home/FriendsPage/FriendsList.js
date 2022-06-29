@@ -9,8 +9,8 @@ const FriendsList = (props) => {
   return (
     <View style={styles.pageContainer}>
       <ScrollView>
-        {props.friends?.map((friend) => {
-          return <FriendCard friend={friend} />;
+        {props.friends?.map((friend, i) => {
+          return <FriendCard key={i} friend={friend} />;
         })}
       </ScrollView>
     </View>

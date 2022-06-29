@@ -4,21 +4,13 @@ import { FirebaseFunctions } from "../../../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { IconButton, TextInput } from "react-native-paper";
 import { Header } from "@react-navigation/stack";
+import MessageList from "./MessageList";
+import { mdiRoutes } from "@mdi/js";
 
 const Messages = ({ route }) => {
   const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState(undefined);
 
   const firebase = new FirebaseFunctions();
-
-  useEffect(() => {
-    async function getMessages() {
-      const friendEmail = route.params.name;
-      const messages = await firebase.getMessages(friendEmail);
-      setMessages(messages);
-    }
-    // getMessages();
-  });
 
   async function handleSendMessage() {
     const response = await firebase.sendMessage(newMessage, route.params.name);
@@ -28,7 +20,9 @@ const Messages = ({ route }) => {
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.messagesContainer}></View>
+      <View style={styles.messagesContainer}>
+        <MessageList friendEmail={route.params.name} />
+      </View>
       <KeyboardAvoidingView keyboardVerticalOffset={80} behavior="padding">
         <View style={styles.newMessageContainer}>
           <TextInput
@@ -49,10 +43,11 @@ export default Messages;
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    justifyContent: "flex-end",
-    backgroundColor: "#ff0000",
+    justifyContent: "space-between",
+    backgroundColor: "white",
   },
   messagesContainer: {
+    flex: 1,
     backgroundColor: "blue",
   },
   textInput: {

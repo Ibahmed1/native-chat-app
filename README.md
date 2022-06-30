@@ -8,7 +8,7 @@ This is the Frontend of the app which is all of the code that allows you to see 
 
 ## In progress
 
-The Messages page is currently in progress, as of now you can send messages and they will be stored into the database however development on the backend is needed before messages that have been sent can be displayed.
+Nothing in progress currently. Next thing to be developed is for messages being able to be swiped which will then reveal a date/time of message being sent
 
 ## running the app
 

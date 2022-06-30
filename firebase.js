@@ -8,22 +8,13 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { firebaseConfig } from "./firebaseConfig.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyD2hVUQ4sevlD3a99fkQWsnY-YtxhzAKRM",
-  authDomain: "native-chat-cfcdc.firebaseapp.com",
-  projectId: "native-chat-cfcdc",
-  storageBucket: "native-chat-cfcdc.appspot.com",
-  messagingSenderId: "513733850624",
-  appId: "1:513733850624:web:31af6a6b6b1d4d470dcae5",
-  measurementId: "G-MDDDMKNSM9",
-  databaseURL: "https://native-chat-cfcdc-default-rtdb.europe-west1.firebasedatabase.app",
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -154,8 +145,8 @@ class FirebaseFunctions {
     const response = await fetch(
       `http://localhost:5001/native-chat-cfcdc/us-central1/app/messages?userEmail=${user.email}&friendEmail=${friendEmail}`
     );
-    const messages = await response.json();
-    return messages.messages;
+    const chat = await response.json();
+    return chat;
   }
 }
 

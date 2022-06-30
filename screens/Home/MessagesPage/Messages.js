@@ -14,7 +14,6 @@ const Messages = ({ route }) => {
 
   async function handleSendMessage() {
     const response = await firebase.sendMessage(newMessage, route.params.name);
-    console.log(response);
     setNewMessage("");
   }
 

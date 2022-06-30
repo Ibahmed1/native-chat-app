@@ -13,5 +13,3 @@ Nothing in progress currently. Next thing to be developed is for messages being 
 ## running the app
 
 If you would like to clone the repo and run the app locally on your machine you need to run `yarn install` in your terminal. To run the app on an xcode iphone simulator run the ``yarn ios` command in your terminal. To run on other simulators please refer to the expo docs.
-
-NOTE: The app will have limited functionality since the backend is not yet deployed (you can only sign-up and login)

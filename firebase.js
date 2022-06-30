@@ -84,20 +84,20 @@ class FirebaseFunctions {
   }
 
   async getUserInfo(id) {
-    const response = await fetch(`http://localhost:5001/native-chat-cfcdc/us-central1/app/user?id=${id}`);
+    const response = await fetch(`https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/user?id=${id}`);
     const userInfo = await response.json();
     return userInfo;
   }
 
   async addFriend(email) {
     const verifyEmailExists = await fetch(
-      `http://localhost:5001/native-chat-cfcdc/us-central1/app/user?email=${email}`
+      `https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/user?email=${email}`
     );
     const emailExists = await verifyEmailExists.json();
     if (emailExists.error) return emailExists;
     try {
       const user = await this.currentUser();
-      const response = await fetch("http://localhost:5001/native-chat-cfcdc/us-central1/app/friends", {
+      const response = await fetch("https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/friends", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,9 @@ class FirebaseFunctions {
 
   async getFriends() {
     const user = await this.currentUser();
-    const response = await fetch(`http://localhost:5001/native-chat-cfcdc/us-central1/app/friends?email=${user.email}`);
+    const response = await fetch(
+      `https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/friends?email=${user.email}`
+    );
     const friends = await response.json();
     return friends.friends;
   }
@@ -123,7 +125,7 @@ class FirebaseFunctions {
   async sendMessage(message, friendEmail) {
     const user = await this.currentUser();
     try {
-      const response = await fetch("http://localhost:5001/native-chat-cfcdc/us-central1/app/messages", {
+      const response = await fetch("https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +145,7 @@ class FirebaseFunctions {
   async getMessages(friendEmail) {
     const user = await this.currentUser();
     const response = await fetch(
-      `http://localhost:5001/native-chat-cfcdc/us-central1/app/messages?userEmail=${user.email}&friendEmail=${friendEmail}`
+      `https://us-central1-native-chat-cfcdc.cloudfunctions.net/app/messages?userEmail=${user.email}&friendEmail=${friendEmail}`
     );
     const chat = await response.json();
     return chat;
